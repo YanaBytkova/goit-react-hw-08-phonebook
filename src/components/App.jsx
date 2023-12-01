@@ -1,21 +1,37 @@
+import { Suspense, lazy, useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Filtering from 'components/Filtering/Filtering';
-import ContactForm from 'components/ContactForm/ContactForm';
-import ContactList from 'components/ContactList/ContactList';
-import css from './App.module.css';
+import Layout from './Layout/Layout';
+import Loader from './Loader/Loader';
+import { useDispatch } from 'react-redux';
+import { refreshThunk } from 'redux/auth/auth.reducer';
+
+
+const Login = lazy(() => import('pages/LoginPage'));
+const Register = lazy(() => import('pages/RegisterPage'));
+const Contacts = lazy(() => import('pages/ContactsPage'));
+
 
 export const App = () => {
-  
- 
-    return (
-      <div className={css.container}>
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <h2>Contacts</h2>
-        <Filtering />
-        <ContactList />
-     </div>
-    );
-  }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshThunk());
+  }, [dispatch]);
+
+  return (
+    <Layout>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          {/* <Route path="/" element={<HomePage />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Suspense>
+    </Layout>
+  );
+};
 
 
