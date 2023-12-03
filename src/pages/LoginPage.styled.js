@@ -16,6 +16,7 @@ export const StyledLoginPage = styled.div`
 
   .labelTitle {
     font-size: 24px;
+    font-weight: bold;
   }
 
   .input {

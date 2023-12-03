@@ -16,7 +16,7 @@ const Filtering = () => {
         
         <div>
             <p className={css.labelText}>Find contacts by name</p>
-            <input type="text" value={filter}  onChange={handleInputFilter}/>
+            <input className={css.input} type="text" value={filter}  onChange={handleInputFilter}/>
         </div> 
        
     );

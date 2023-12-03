@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContactsThunk } from 'redux/contacts/contacts.reducer';
 import Loader from 'components/Loader/Loader';
+
 import {
     selectContacts,
     selectContactsError,

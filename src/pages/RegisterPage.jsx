@@ -29,7 +29,7 @@ const RegisterPage = () => {
         <input
           className="input"
           type="text"
-          placeholder="Ivan Ivanovich Ivanov"
+          placeholder="User Name"
           required
           name="userName"
         />
@@ -39,7 +39,7 @@ const RegisterPage = () => {
         <input
           className="input"
           type="email"
-          placeholder="hotmail@hotmail.com"
+          placeholder="usernamel@gmail.com"
           required
           name="userEmail"
         />

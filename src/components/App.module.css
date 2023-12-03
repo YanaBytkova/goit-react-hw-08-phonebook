@@ -17,3 +17,19 @@
     align-items: center;
 }
 
+.titlePhonebook {
+    font-size: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.titleContacts {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    
+}
+

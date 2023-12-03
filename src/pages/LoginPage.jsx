@@ -29,7 +29,7 @@ const LoginPage = () => {
         <input
         className="input"
           type="email"
-          placeholder="hotmail@hotmail.com"
+          placeholder="username@gmail.com"
           required
           name="userEmail"
         />

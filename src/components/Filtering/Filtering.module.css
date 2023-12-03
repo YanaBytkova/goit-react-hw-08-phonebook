@@ -1,0 +1,12 @@
+.labelText {
+    margin: 10px auto;
+    font-size: 24px;
+  }
+
+  .input {
+    font-size: 24px;
+    padding-left: 10px;
+    border: 1px solid;
+    border-radius: 14px;
+    box-shadow: 18px 17px 76px -10px rgba(26,1,9,0.89);
+  }

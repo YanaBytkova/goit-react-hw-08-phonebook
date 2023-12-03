@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import css from './ContactForm.module.css';
-
+import { ReactComponent as IconAdd } from 'assets/icons/addIcon.svg';
 
 import {
   addContacThunk,
@@ -33,13 +33,13 @@ const ContactForm = () => {
       <form onSubmit={onAddContact} className={css.form}>
         <label className={css.formLabel}>
           <p className={css.labelText}>Name</p>
-          <input type="text" name="contactName" required />
+          <input className={css.input} type="text" name="contactName" required />
         </label>
         <label className={css.formLabel}>
           <p className={css.labelText}>Number</p>
-          <input type="tel" name="contactNumber" required />
+          <input className={css.input} type="tel" name="contactNumber" required />
         </label> <br />
-        <button className={css.button} type="submit">Add contact</button>
+        <button className={css.button} type="submit">Add contact <IconAdd className={css.svgIcon}/></button>
       </form>
     );
  
