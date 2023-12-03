@@ -1,68 +1,48 @@
 
-import React, { useState } from 'react';
-import { addContact } from 'redux/contacts/contacts.reducer';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import css from './ContactForm.module.css';
-import { nanoid } from 'nanoid';
-import { selectContacts } from 'redux/contacts/contacts.selector';
+
+
+import {
+  addContacThunk,
+  fetchContactsThunk,
+} from 'redux/contacts/contacts.reducer';
+
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-   const [name, setName] = useState('');
-   const [phone, setNumber] = useState('');
-  const handleSubmit = event => {
+
+  useEffect(() => {
+    dispatch(fetchContactsThunk());
+  }, [dispatch]);
+
+  const onAddContact = event => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const contactData = {
+
+    const name = event.currentTarget.elements.contactName.value;
+    const number = event.currentTarget.elements.contactNumber.value;
+
+    const formData = {
       name,
-      phone
+      number,
     };
-    
-    handleAddProduct(contactData);
-    form.reset();
+
+    dispatch(addContacThunk(formData))
+      .unwrap()
+      .then(() => event.target.reset());
   };
 
-  const handleAddProduct = contactData => {
-    const isExist = contacts.some(
-      contact => contact.name === contactData.name
-    );
-
-    if (isExist) {
-      alert(`${contactData.name} is already in contacts.`);
-      return
-    }
-
-    const finalNames = {
-      ...contactData,
-      id: nanoid(),
-    };
-    dispatch(addContact(finalNames));
-
-  };
-
-  const handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name; 
-    if (name === 'name') {
-      setName(value);
-    }
-    if (name === 'number') {
-      setNumber(value);
-    }
-  };
-
-  
     return (
         
-      <form onSubmit={handleSubmit} className={css.form}>
+      <form onSubmit={onAddContact} className={css.form}>
         <label className={css.formLabel}>
           <p className={css.labelText}>Name</p>
-          <input type="text" name="name" required onChange={handleInputChange}/>
+          <input type="text" name="contactName" required />
         </label>
         <label className={css.formLabel}>
           <p className={css.labelText}>Number</p>
-          <input type="tel" name="number" required onChange={handleInputChange}/>
+          <input type="tel" name="contactNumber" required />
         </label> <br />
         <button className={css.button} type="submit">Add contact</button>
       </form>

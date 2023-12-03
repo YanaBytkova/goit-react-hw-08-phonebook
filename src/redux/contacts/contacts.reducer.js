@@ -1,16 +1,12 @@
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { instance } from 'redux/auth/auth.reducer';
 
-axios.defaults.headers.common["content-type"] = "application/json";
-
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (thunkApi) => {
+export const fetchContactsThunk = createAsyncThunk(
+  'contacts/getAll',
+  async (_, thunkApi) => {
     try {
-      const { data } = await axios.get(
-        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts`
-      );
- 
+      const { data } = await instance.get('/contacts');
+
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
@@ -18,79 +14,59 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
+export const addContacThunk = createAsyncThunk(
+  'contacts/add',
+  async (formData, thunkApi) => {
+    try {
+      const { data } = await instance.post('/contacts', formData);
+
+      return data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const deleteContactThunk = createAsyncThunk(
+  'contacts/delete',
   async (contactId, thunkApi) => {
     try {
-      const { data } = await axios.delete(
-        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts/${contactId}`
-      );
+      const { data } = await instance.delete(`/contacts/${contactId}`);
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
     }
   }
 );
-
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async (newContact, thunkApi) => {
-    try {
-      const { data } = await axios.post(
-        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts`, newContact
-      );
- 
-      return data;
-    } catch (err) {
-      return thunkApi.rejectWithValue(err.message);
-    }
-  }
-);
-
 
 const initialState = {
   contacts: [],
   isLoading: false,
   error: null,
-  filterTerm: ""
-  
 };
 
 const contactsSlice = createSlice({
- 
   name: 'contacts',
   initialState,
-  reducers: {
-
-    inputFilter(state, { payload }) {
-     state.filterTerm = payload;
-   }, 
-
-},
-extraReducers: builder =>
+  extraReducers: builder =>
     builder
-      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
+      .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.contacts = payload;
-        
       })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.contacts = state.contacts.filter(contact=> contact.id !== payload.id);
-        
-      })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
+      .addCase(addContacThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.contacts = [...state.contacts, payload];
-        
       })
-
+      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.contacts = state.contacts.filter(contact => contact.id !== payload.id)
+      })
       .addMatcher(
         isAnyOf(
-    
-          fetchContacts.pending, 
-          deleteContact.pending, 
-          addContact.pending
+          fetchContactsThunk.pending,
+          addContacThunk.pending,
+          deleteContactThunk.pending
         ),
         state => {
           state.isLoading = true;
@@ -99,18 +75,15 @@ extraReducers: builder =>
       )
       .addMatcher(
         isAnyOf(
-         
-          fetchContacts.rejected,
-          deleteContact.rejected,
-          addContact.rejected
+          fetchContactsThunk.rejected,
+          addContacThunk.rejected,
+          deleteContactThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;
           state.error = payload;
         }
       ),
-
 });
 
-export const {inputFilter} = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
