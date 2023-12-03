@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from 'redux/auth/auth.reducer';
+import { StyledLoginPage } from './LoginPage.styled.js';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -21,10 +22,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <StyledLoginPage>
+      <form onSubmit={onSubmit} className="formLogin">
       <label>
-        <p>Name:</p>
+        <p className="labelTitle">Name:</p>
         <input
+          className="input"
           type="text"
           placeholder="Ivan Ivanovich Ivanov"
           required
@@ -32,8 +35,9 @@ const RegisterPage = () => {
         />
       </label>
       <label>
-        <p>Email:</p>
+        <p className="labelTitle">Email:</p>
         <input
+          className="input"
           type="email"
           placeholder="hotmail@hotmail.com"
           required
@@ -41,8 +45,9 @@ const RegisterPage = () => {
         />
       </label>
       <label>
-        <p>Password:</p>
+        <p className="labelTitle">Password:</p>
         <input
+          className="input"
           type="password"
           placeholder="*******"
           required
@@ -50,8 +55,10 @@ const RegisterPage = () => {
         />
       </label>
       <br />
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="buttonLogin">Sign Up</button>
     </form>
+    </StyledLoginPage>
+    
   );
 };
 

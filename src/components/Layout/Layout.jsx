@@ -5,6 +5,8 @@ import css from './Layout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthenticated, selectUserData } from 'redux/auth/auth.selectors';
 import { logOutThunk } from 'redux/auth/auth.reducer';
+import { ReactComponent as IconUser } from 'assets/icons/userIcon.svg';
+import { ReactComponent as IconLogout } from 'assets/icons/logoutIcon.svg';
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -16,8 +18,8 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div>
-      <header>
+    <div className={css.containerPhonebook}>
+      <header className={css.containerHeader}>
         <NavLink
           className={({ isActive }) =>
             `${css.headerLink} ${isActive ? css.active : ''}`
@@ -38,9 +40,10 @@ const Layout = ({ children }) => {
               Contacts
             </NavLink>
 
-            <div>
-              <span>Hello, {userData.name}!</span>{' '}
-              <button onClick={onLogOut}>Log Out</button>
+            <div className={css.containerLogout}>
+              <IconUser className={css.svgIcon}/>
+              <span className={css.hello}>Hello, {userData.name}!</span> 
+              <button onClick={onLogOut} className={css.buttonLogout}> <IconLogout className={css.svgIcon}/></button>
             </div>
           </>
         ) : (

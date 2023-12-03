@@ -1,21 +1,16 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import css from './ContactForm.module.css';
 
 
 import {
   addContacThunk,
-  fetchContactsThunk,
 } from 'redux/contacts/contacts.reducer';
 
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContactsThunk());
-  }, [dispatch]);
 
   const onAddContact = event => {
     event.preventDefault();

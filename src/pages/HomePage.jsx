@@ -10,8 +10,9 @@ export class HomePage extends React.Component {
   render() {
     return (
       <StyledHomePage>
-        <h1>The best PHONEBOOK for you contacts</h1>
-        <p>For starting you will register on RegisterPage</p>
+        <h1 className="itemTitle">The best <span className="titleWord">PHONEBOOK</span> for you contacts</h1>
+        <p className="textTyping">To get started, register or log in ...</p>
+        {/* <img src="./src/assets/images/people.jpg" alt="Phonebook icon" className="image" /> */}
       </StyledHomePage>
     );
   }

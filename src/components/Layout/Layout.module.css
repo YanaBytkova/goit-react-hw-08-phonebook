@@ -1,15 +1,68 @@
+.containerPhonebook {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,154,45,1) 75%);
+}
+
 .headerLink {
   text-decoration: none;
   color: black;
-  font-size: 20px;
-  padding: 20px;
+  font-size: 26px;
+  padding: 10px;
   margin-right: 25px;
   display: inline-flex;
   border: 1px solid black;
   border-radius: 10px;
   transition: all 0.3s;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+.headerLink:hover,
+.headerLink:focus {
+  transform: scale(1.1);
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .active {
-  background-color: black;
+  background-color: rgba(34,193,195,1);
   color: #fff;
+}
+
+.containerHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+.containerLogout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.buttonLogout {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hello {
+  font-size: 24px;
+}
+
+.svgIcon {
+width: 28px;
+height: 28px;
+}
+
+.buttonLogout:hover,
+.buttonLogout:focus {
+  transform: scale(1.4);
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
 }

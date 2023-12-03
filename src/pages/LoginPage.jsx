@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/auth/auth.reducer';
+import { StyledLoginPage } from './LoginPage.styled.js';
+import { ReactComponent as IconLogin } from 'assets/icons/loginIcon.svg';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -20,10 +22,12 @@ const LoginPage = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <StyledLoginPage>
+        <form onSubmit={onSubmit} className="formLogin">
       <label>
-        <p>Email:</p>
+        <p className="labelTitle">Email:</p>
         <input
+        className="input"
           type="email"
           placeholder="hotmail@hotmail.com"
           required
@@ -31,8 +35,9 @@ const LoginPage = () => {
         />
       </label>
       <label>
-        <p>Password:</p>
+        <p className="labelTitle">Password:</p>
         <input
+          className="input"
           type="password"
           placeholder="*******"
           required
@@ -40,9 +45,13 @@ const LoginPage = () => {
           minLength={7}
         />
       </label>
-      <br />
-      <button type="submit">Sign In</button>
+      
+      <button type="submit" className="buttonLogin">Sign In
+      <IconLogin className="svgIcon"/>
+      </button>
     </form>
+    </StyledLoginPage>
+    
   );
 };
 
